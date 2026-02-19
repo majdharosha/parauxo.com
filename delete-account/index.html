@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account & Data Deletion – Parauxo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0f0e0d;
+      --paper: #f5f2ec;
+      --accent: #c0392b;
+      --accent-light: #f9ebe9;
+      --rule: #d8d2c7;
+      --muted: #7a7468;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid var(--rule);
+      padding: 2rem 2rem 1.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .wordmark {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      letter-spacing: -0.01em;
+    }
+    .wordmark span { color: var(--accent); }
+    .by-line {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── Hero band ── */
+    .hero {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 4rem 2rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.03) 60px,
+        rgba(255,255,255,0.03) 61px
+      );
+    }
+    .hero-inner { max-width: 680px; position: relative; }
+    .hero-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(245,242,236,0.75);
+      max-width: 520px;
+    }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Section ── */
+    section { margin-bottom: 3rem; }
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    p { color: #3a3832; margin-bottom: 0.8rem; }
+
+    /* ── Steps ── */
+    .steps { counter-reset: step; }
+    .step {
+      display: grid;
+      grid-template-columns: 2.4rem 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--rule);
+      animation: fadeUp 0.5s ease both;
+    }
+    .step:first-child { border-top: 1px solid var(--rule); }
+    .step:nth-child(1) { animation-delay: 0.05s; }
+    .step:nth-child(2) { animation-delay: 0.1s; }
+    .step:nth-child(3) { animation-delay: 0.15s; }
+    .step:nth-child(4) { animation-delay: 0.2s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-num {
+      width: 2rem;
+      height: 2rem;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .step-body strong {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    .step-body p { margin: 0; font-size: 0.94rem; }
+
+    /* ── Data table ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+      margin-top: 0.5rem;
+    }
+    .data-table thead tr {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .data-table th {
+      text-align: left;
+      padding: 0.7rem 1rem;
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      color: #3a3832;
+      vertical-align: top;
+    }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover td { background: rgba(0,0,0,0.025); }
+
+    .badge {
+      display: inline-block;
+      padding: 0.18rem 0.55rem;
+      border-radius: 2px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .badge-deleted { background: var(--accent-light); color: var(--accent); }
+    .badge-retained { background: #e8f0e8; color: #2d6a2d; }
+
+    /* ── CTA box ── */
+    .cta-box {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2rem 2.2rem;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+    .cta-box p {
+      color: rgba(245,242,236,0.72);
+      margin-bottom: 1.2rem;
+      font-size: 0.96rem;
+    }
+    .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.75rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .email-link:hover { background: #a93226; }
+    .email-link svg { flex-shrink: 0; }
+
+    /* ── Notice box ── */
+    .notice {
+      background: #fffbf0;
+      border-left: 3px solid #e6a817;
+      padding: 1rem 1.2rem;
+      font-size: 0.9rem;
+      color: #5a4a10;
+      margin-top: 1rem;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wordmark">para<span>u</span>xo</div>
+    <div class="by-line">by Parallax Horizon</div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-label">Data &amp; Privacy</div>
+      <h1>Account &amp; Data<br>Deletion Request</h1>
+      <p>You have the right to delete your Parauxo account and the personal data associated with it. This page explains exactly how to do that and what happens to your data.</p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Steps -->
+    <section>
+      <div class="section-label">How to request</div>
+      <h2>Steps to Delete Your Account</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Compose a deletion request email</strong>
+            <p>Open your email client and create a new message addressed to <a href="mailto:support@parallaxhorizon.com">support@parallaxhorizon.com</a>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Use the subject line: "Account Deletion Request"</strong>
+            <p>This helps our team identify and prioritise your request immediately.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Include your account details in the body</strong>
+            <p>Please provide the name and email address associated with your Parauxo account so we can locate it accurately.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Wait for confirmation</strong>
+            <p>We will acknowledge your request within <strong>2 business days</strong> and complete the deletion within <strong>30 days</strong>. You will receive a confirmation email once your account has been permanently deleted.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data table -->
+    <section>
+      <div class="section-label">What happens to your data</div>
+      <h2>Data Deleted &amp; Retained</h2>
+      <p>When your deletion request is processed, here is exactly what is removed and what, if anything, is kept and why.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Action</th>
+            <th>Details &amp; Retention Period</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Name</strong></td>
+            <td><span class="badge badge-deleted">Deleted</span></td>
+            <td>Permanently removed from all active systems within 30 days of your confirmed request.</td>
+          </tr>
+          <tr>
+            <td><strong>Email address</strong></td>
+            <td><span class="badge badge-deleted">Deleted</span></td>
+            <td>Permanently removed from all active systems within 30 days of your confirmed request.</td>
+          </tr>
+          <tr>
+            <td><strong>Account &amp; profile data</strong></td>
+            <td><span class="badge badge-deleted">Deleted</span></td>
+            <td>All account settings and preferences are permanently erased within 30 days.</td>
+          </tr>
+          <tr>
+            <td><strong>Anonymised usage logs</strong></td>
+            <td><span class="badge badge-retained">Retained up to 90 days</span></td>
+            <td>Aggregate, anonymised analytics that cannot be linked back to you may be retained for up to 90 days for product improvement, then deleted.</td>
+          </tr>
+          <tr>
+            <td><strong>Legal &amp; financial records</strong></td>
+            <td><span class="badge badge-retained">Retained per legal obligation</span></td>
+            <td>Where required by applicable law (e.g. tax records), certain transactional data may be retained for up to 7 years before deletion.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="notice">
+        ⚠️ Once your personal data is deleted, this action <strong>cannot be undone</strong>. Please ensure you have exported any content you wish to keep before submitting your request.
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+      <div class="section-label">Ready to proceed?</div>
+      <h2>Send Your Deletion Request</h2>
+      <div class="cta-box">
+        <p>Tap the button below to open a pre-addressed email. Simply add your name and the email address linked to your Parauxo account in the body, then send.</p>
+        <a class="email-link" href="mailto:support@parallaxhorizon.com?subject=Account%20Deletion%20Request&body=Hi%20Parallax%20Horizon%20team%2C%0A%0AI%20would%20like%20to%20request%20the%20permanent%20deletion%20of%20my%20Parauxo%20account%20and%20all%20associated%20personal%20data.%0A%0AAccount%20name%3A%20%5BYour%20full%20name%5D%0AAccount%20email%3A%20%5BYour%20email%20address%5D%0A%0AThank%20you.">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email support@parallaxhorizon.com
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; <script>document.write(new Date().getFullYear())</script> Parallax Horizon. All rights reserved.
+    &nbsp;·&nbsp; <a href="mailto:support@parallaxhorizon.com">support@parallaxhorizon.com</a>
+  </footer>
+
+</body>
+</html>
